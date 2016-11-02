@@ -1,6 +1,7 @@
-Simple Chat Demo using Firebase REST API.
+# Simple Chat Demo using Firebase REST API.
 Demo available here: https://chat-c3af9.firebaseapp.com/
 
+------
 
 This project was bootstrapped with [Create React App](https://github.com/facebookincubator/create-react-app).
 
