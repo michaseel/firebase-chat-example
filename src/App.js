@@ -15,46 +15,46 @@ class App extends Component {
     };
   }
 
-  componentWillMount() {
-    this.getAllMessages();
-    setInterval(this.getAllMessages, 5000);
+  componentWillMount() { // React specific: Do this things when the component will be mounted
+    this.getAllMessages(); // load all messages initially
+    setInterval(this.getAllMessages, 5000); // after that poll every 5 seconds
   }
 
   getAllMessages = () => {
     fetch(BASE_URL + 'messages.json')
-      .then(response => response.json())
+      .then(response => response.json()) // parse the json
       .then((json) => {
-        this.setState({ messages: json });
+        this.setState({ messages: json }); // store the json in the react state
       });
   };
 
   postNewMessage = (e) => {
-    e.preventDefault();
-    this.setState({ pending: true });
+    e.preventDefault();  // do not reload page
+    this.setState({ pending: true }); // disable button
 
-    const newMessage = {
-      author: this.refs.author.value,
+    const newMessage = { // define a new message
+      author: this.refs.author.value, // read the value of the input fields
       value: this.refs.message.value,
-      timestamp: Date.now()
+      timestamp: Date.now() // add a timestamp
     };
 
-    fetch(BASE_URL + 'messages.json', {
+    fetch(BASE_URL + 'messages.json', { // post the new message
       method: 'POST',
       body: JSON.stringify(newMessage)
     })
-    .then(this.getAllMessages)
+    .then(this.getAllMessages) // after that load all Messages
     .then(() => {
-      this.setState({ pending: false });
-      this.refs.message.value = '';
-      this.refs.message.focus();
+      this.setState({ pending: false }); // enable the button
+      this.refs.message.value = ''; // empty the input field
+      this.refs.message.focus(); // set the focus on the input field
     });
   };
 
-  deleteMessage = (id) => () => {
+  deleteMessage = (id) => () => { // delete the message with this id
     fetch(BASE_URL + 'messages/' + id + '.json', {
       method: 'DELETE'
     })
-    .then(this.getAllMessages);
+    .then(this.getAllMessages); // then load all messages
   };
 
   render() {
