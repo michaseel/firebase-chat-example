@@ -9,6 +9,16 @@
   color: white;
 }
 
+.message {
+  margin-bottom: 10px;
+  cursor: not-allowed;
+}
+
+.message-info {
+  color: #999;
+  font-size: 11px;
+}
+
 ul {
   list-style: none;
 }

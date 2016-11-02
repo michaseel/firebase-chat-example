@@ -1,12 +1,13 @@
-import React, {Component} from 'react';
+import React, { Component } from 'react';
 import './App.css';
+import Message from './Message';
 import _ from 'lodash';
 
 const BASE_URL = 'https://chat-c3af9.firebaseio.com/';
 
 class App extends Component {
 
-  constructor(props) {
+  constructor(props) { // React specific: Class constructor
     super(props);
     this.state = {
       messages: {},
@@ -33,7 +34,8 @@ class App extends Component {
 
     const newMessage = {
       author: this.refs.author.value,
-      value: this.refs.message.value
+      value: this.refs.message.value,
+      timestamp: Date.now()
     };
 
     fetch(BASE_URL + 'messages.json', {
@@ -64,7 +66,9 @@ class App extends Component {
         </div>
         <ul>
           { _.map(this.state.messages, (message, key) =>
-            <li key={key} onClick={this.deleteMessage(key)}>{message.author}: {message.value}</li>)
+            <li key={key} onClick={this.deleteMessage(key)}>
+              <Message message={message}/>
+            </li>)
           }
         </ul>
         <form onSubmit={this.postNewMessage}>
